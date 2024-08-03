@@ -5,8 +5,13 @@
 # TODO: finding the correct COM port will be a pain.  How?
 import serial
 
+# TODO: look in /dev/*usb* and pick first one
+# TODO: accept device path as an arg
+COM = "/dev/tty.usbserial-A700fjTa"
+
 # Set up the serial connection
-ser = serial.Serial('COM3', 9600)  # Replace 'COM3' with your Arduino's port and 9600 with the baud rate
+# ser = serial.Serial('COM3', 9600)  
+ser = serial.Serial(COM, 115200)  
 
 # Read data from the serial port
 while True:
