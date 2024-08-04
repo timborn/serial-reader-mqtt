@@ -1,4 +1,4 @@
-Sat Aug  3 07:46:55 MST 2024
+Sun Aug  4 06:54:36 MST 2024
 ----------------------------
 
 I have the temp/humidity sensor on the Arduino, but no wifi or ethernet
@@ -9,6 +9,11 @@ VENV
 ----
 NB we are using Python virtual environments:
 NB it is CRITIAL to use python3 to create the env; when in env python == python3
+NB even more critical: venv does not xfer between machines, therefore use
+git to move code and recreate the venv on each machine you use.
+Use "pip freeze > requirements.txt" and "pip install -r requirements.txt"
+INSIDE the venv to capture and recreate the dependencies.
+Time for a Makefile.
 
 create new venv:
 $ python3 -m venv /path/to/new/virtual/environment
