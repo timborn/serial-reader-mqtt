@@ -14,18 +14,18 @@ port=1883
 
 # must define before use
 def on_publish(client,userdata,mid,result, props):
-    print("data published \n")
+    # print("data published \n")
     pass
 
+# by factoring this out I can establish a persistent connection to broker
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.on_publish = on_publish                     
+client.connect(broker,port,60)	# 60 seconds keep-alive
+
 def post_msg(str):
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-    client.on_publish = on_publish                     
-    client.connect(broker,port)                        
     ret= client.publish("/env/tempsensor1", data)            
-    print("posting msg")
 
 # Set up the serial connection
-# ser = serial.Serial('COM3', 9600)  
 try:
     ser = serial.Serial(COM, 115200)  
 except:
@@ -39,9 +39,3 @@ while True:
     print(data)
     post_msg(data)
 
-
-### TODO: figure out functions in python and structure this mess
-## publish something to MQTT broker on R2D2
-## assumes mosquitto is running on R2D2 port 1883
-## assume MQTT v5 and paho API v2
-#
