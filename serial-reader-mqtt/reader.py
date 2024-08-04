@@ -11,7 +11,11 @@ COM = "/dev/tty.usbserial-A700fjTa"
 
 # Set up the serial connection
 # ser = serial.Serial('COM3', 9600)  
-ser = serial.Serial(COM, 115200)  
+try:
+    ser = serial.Serial(COM, 115200)  
+except:
+    print(f"Unable to open {COM}")
+    exit(1)
 
 # Read data from the serial port
 while True:
