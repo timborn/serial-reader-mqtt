@@ -15,14 +15,19 @@ try:
     ser = serial.Serial(COM, 115200)  
 except:
     print(f"Unable to open {COM}")
+    print("did you 'pip install pyserial' inside venv?")
     exit(1)
 
+# Read data from the serial port
+while True:
+    data = ser.readline().decode().strip()  # Read a line and decode it
+    print(data)
+    post_msg()
+
+def post_msg():
+    print("posting msg")
+
 ### TODO: figure out functions in python and structure this mess
-## Read data from the serial port
-#while True:
-#    data = ser.readline().decode().strip()  # Read a line and decode it
-#    print(data)
-#
 ## publish something to MQTT broker on R2D2
 ## assumes mosquitto is running on R2D2 port 1883
 ## assume MQTT v5 and paho API v2
