@@ -10,18 +10,29 @@ create:
 	@echo "Type '. ./serial/bin/activate'"
 
 # this assumes Makefile is above folder created by venv
+# When Make starts up, it transforms every environment variable into 
+# a Make variable with the same name and value. 
+# we need to confirm we are in venv
 setup:
-	# what happens if I activate when I'm already activated? no harm
-	. ./serial/bin/activate
-	# do I need to be in this dir?
+ifdef VIRTUAL_ENV_PROMPT
 	cd serial && pip install -r ../requirements.txt 
+else
+	@echo source ./serial/bin/activate and try again
+endif
 
 prep:  # prep for git push
+ifdef VIRTUAL_ENV_PROMPT
 	cd serial && pip freeze > ../requirements.txt
+else
+	@echo source ./serial/bin/activate and try again
+endif
 
 clean:
 	rm -rf serial
 
 test:
-	. ./serial/bin/activate
+ifdef VIRTUAL_ENV_PROMPT
 	python ./reader.py
+else
+	@echo source ./serial/bin/activate and try again
+endif
