@@ -4,10 +4,25 @@
 # indentation is four spaces for each level
 # TODO: finding the correct COM port will be a pain.  How?
 import serial
+import paho.mqtt.client as mqtt
 
 # TODO: look in /dev/*usb* and pick first one
 # TODO: accept device path as an arg
 COM = "/dev/tty.usbserial-A700fjTa"
+broker="R2D2.local"
+port=1883
+
+# must define before use
+def on_publish(client,userdata,mid,result, props):
+    print("data published \n")
+    pass
+
+def post_msg(str):
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    client.on_publish = on_publish                     
+    client.connect(broker,port)                        
+    ret= client.publish("/env/tempsensor1", data)            
+    print("posting msg")
 
 # Set up the serial connection
 # ser = serial.Serial('COM3', 9600)  
@@ -22,25 +37,11 @@ except:
 while True:
     data = ser.readline().decode().strip()  # Read a line and decode it
     print(data)
-    post_msg()
+    post_msg(data)
 
-def post_msg():
-    print("posting msg")
 
 ### TODO: figure out functions in python and structure this mess
 ## publish something to MQTT broker on R2D2
 ## assumes mosquitto is running on R2D2 port 1883
 ## assume MQTT v5 and paho API v2
 #
-#import paho.mqtt.client as mqtt
-#broker="R2D2.local"
-#port=1883
-#
-## https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html#paho.mqtt.client.Client.on_publish
-#def on_publish(client,userdata,mid,result, props):
-#    print("data published \n")
-#    pass
-#client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-#client.on_publish = on_publish                     # assign function to callback
-#client.connect(broker,port)                        # establish connection
-#ret= client.publish("house/bulb1","on")            # publish
