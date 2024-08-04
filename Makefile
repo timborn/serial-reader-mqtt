@@ -3,6 +3,8 @@ default:
 	@echo setup - install dependencies in venv
 	@echo prep - gather dependencies for git push
 	@echo clean - removes serial/ - use with caution
+	@echo
+	@echo test - run our program and see what happens
 create:
 	python3 -m venv serial --prompt ser-mqtt
 	@echo "Type '. ./serial/bin/activate'"
@@ -19,3 +21,7 @@ prep:  # prep for git push
 
 clean:
 	rm -rf serial
+
+test:
+	. ./serial/bin/activate
+	python ./reader.py
