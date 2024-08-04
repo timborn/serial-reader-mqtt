@@ -8,8 +8,10 @@ gathering the measurements, adding a timestamp and posting to MQTT.
 VENV
 ----
 NB we are using Python virtual environments:
+NB it is CRITIAL to use python3 to create the env; when in env python == python3
+
 create new venv:
-$ python -m venv /path/to/new/virtual/environment
+$ python3 -m venv /path/to/new/virtual/environment
 
 activate:
 $ source <venv>/bin/activate

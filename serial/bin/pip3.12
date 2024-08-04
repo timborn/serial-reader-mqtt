@@ -1,4 +1,4 @@
-#!/Volumes/BlueMountain/Users/timborn/arduino/serial-reader-python/serial-reader-mqtt/bin/python3.12
+#!/Users/timborn/arduino/serial-reader-mqtt/serial/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
