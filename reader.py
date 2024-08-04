@@ -17,7 +17,25 @@ except:
     print(f"Unable to open {COM}")
     exit(1)
 
-# Read data from the serial port
-while True:
-    data = ser.readline().decode().strip()  # Read a line and decode it
-    print(data)
+### TODO: figure out functions in python and structure this mess
+## Read data from the serial port
+#while True:
+#    data = ser.readline().decode().strip()  # Read a line and decode it
+#    print(data)
+#
+## publish something to MQTT broker on R2D2
+## assumes mosquitto is running on R2D2 port 1883
+## assume MQTT v5 and paho API v2
+#
+#import paho.mqtt.client as mqtt
+#broker="R2D2.local"
+#port=1883
+#
+## https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html#paho.mqtt.client.Client.on_publish
+#def on_publish(client,userdata,mid,result, props):
+#    print("data published \n")
+#    pass
+#client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+#client.on_publish = on_publish                     # assign function to callback
+#client.connect(broker,port)                        # establish connection
+#ret= client.publish("house/bulb1","on")            # publish
