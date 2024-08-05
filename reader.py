@@ -5,6 +5,7 @@
 # TODO: finding the correct COM port will be a pain.  How?
 import serial
 import paho.mqtt.client as mqtt
+import time
 
 # TODO: look in /dev/*usb* and pick first one
 # TODO: accept device path as an arg
@@ -37,5 +38,11 @@ except:
 while True:
     data = ser.readline().decode().strip()  # Read a line and decode it
     print(data)
+    # parse the msg we get
+    # expecting: "h=44.6	f=80.6"
+    # want: { "hostname":"enviro1","timestamp":873873,"humidity":44.6,"f":80.6}
+    # seconds since epoch.  really don't care about the fractional bits
+    ts = int(time.time())
+    print(f"ts = {ts}")
     post_msg(data)
 
