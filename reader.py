@@ -6,6 +6,7 @@
 import serial
 import paho.mqtt.client as mqtt
 import time
+import re
 
 # TODO: look in /dev/*usb* and pick first one
 # TODO: accept device path as an arg
@@ -24,7 +25,7 @@ client.on_publish = on_publish
 client.connect(broker,port,60)	# 60 seconds keep-alive
 
 def post_msg(str):
-    ret= client.publish("/env/tempsensor1", data)            
+    ret= client.publish("/env/tempsensor1", str)
 
 # Set up the serial connection
 try:
@@ -44,5 +45,13 @@ while True:
     # seconds since epoch.  really don't care about the fractional bits
     ts = int(time.time())
     print(f"ts = {ts}")
-    post_msg(data)
+    regex = r"\s*h=(\d+).\d+\s*f=(\d+).\d+\s*"
+    match = re.search(regex, data)
+    if match != None:
+        h = int(match.group(1))
+        f = int(match.group(2))
+    else:
+        print("regex failed")
+    msg = f'{{"timestamp":{ts}, "hostname":"hostname", "humidity":{h}, "f":{f}}}'
+    post_msg(msg)
 
