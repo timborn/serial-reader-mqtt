@@ -10,6 +10,7 @@ import re
 
 # TODO: look in /dev/*usb* and pick first one
 # TODO: accept device path as an arg
+hostname="enviro1"
 COM = "/dev/tty.usbserial-A700fjTa"
 broker="R2D2.local"
 port=1883
@@ -52,6 +53,6 @@ while True:
         f = int(match.group(2))
     else:
         print("regex failed")
-    msg = f'{{"timestamp":{ts}, "hostname":"hostname", "humidity":{h}, "f":{f}}}'
+    msg = f'{{"timestamp":{ts}, "hostname":"{hostname}", "humidity":{h}, "f":{f}}}'
     post_msg(msg)
 
